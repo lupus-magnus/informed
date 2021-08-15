@@ -14,6 +14,7 @@ type TypographyProps = {
   fontFamily: "noto-sans" | "rajdhani";
   type: 1 | 2 | 3;
   color?: string;
+  style?: { [key: string]: string | number };
 };
 
 export const myFonts = {
@@ -27,13 +28,13 @@ const Typography: React.FC<TypographyProps> = ({
   fontFamily = "noto-sans",
   type = 1,
   color = "black",
-
+  style = {},
   ...props
 }) => {
   const models = {
     "noto-sans": {
       1: {
-        fontFamily: "NotoSans_400Regular",
+        fontFamily: "NotoSans_700Bold",
         fontSize: 26,
         color,
       },
@@ -52,24 +53,23 @@ const Typography: React.FC<TypographyProps> = ({
       1: {
         fontFamily: "Rajdhani_700Bold",
         fontSize: 18,
-        color,
       },
       2: {
         fontFamily: "Rajdhani_700Bold",
         fontSize: 36,
-        color,
       },
       3: {
         fontFamily: "Rajdhani_700Bold",
         fontSize: 48,
-        color,
       },
     },
   } as const;
 
   const textStyle = models[fontFamily][type];
 
-  return <Text style={textStyle}>{props.children}</Text>;
+  return (
+    <Text style={{ ...textStyle, color, ...style }}>{props.children}</Text>
+  );
 };
 
 export default Typography;

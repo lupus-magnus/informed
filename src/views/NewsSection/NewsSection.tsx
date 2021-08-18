@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, ImageBackground } from "react-native";
-import Typography from "../Typography/Typography";
+import Typography from "../../components/Typography/Typography";
 
 const mockImage = require("../../../assets/mock/handshake.jpeg");
 

@@ -5,7 +5,6 @@ import { WeatherBoxes, DailyReport } from "../../components";
 import SunIcon from "../../components/icons/SunIcon";
 
 const logo = require("../../../assets/app/logo_transparent.png");
-const thermometer = require("../../../assets/weather/thermometer.png");
 
 const dailyReportData = {
   climate: "Chuva leve",
@@ -29,6 +28,7 @@ const WeatherSection: React.FC = () => {
       </View>
       <WeatherBoxes />
       <IconContainer />
+      <View style={styles.separator} />
       <DailyReport
         climate={dailyReportData.climate}
         maxTemp={dailyReportData.maxTemp}
@@ -43,12 +43,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    // borderStyle: "solid",
-    // borderWidth: 1,
-    // borderColor: "black",
+    //borderStyle: "solid",
+    //borderBottomWidth: 2,
+    //borderColor: "#555",
 
     flexGrow: 1,
     width: "100%",
+  },
+  separator: {
+    width: "60%",
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderColor: "#555",
   },
   iconStyle: {
     flexShrink: 1,

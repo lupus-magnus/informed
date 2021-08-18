@@ -14,7 +14,9 @@ type TypographyProps = {
   fontFamily: "noto-sans" | "rajdhani";
   type: 1 | 2 | 3;
   color?: string;
-  style?: { [key: string]: string | number };
+  style?: {
+    [key: string]: string | number | { [key: string]: string | number }[];
+  };
 };
 
 export const myFonts = {

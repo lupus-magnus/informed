@@ -1,53 +1,47 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Typography from "../../components/Typography/Typography";
 
-import CloudIcon from "../../components/icons/CloudIcon";
-import SunIcon from "../icons/SunIcon";
+import { LightRainIcon, HeavyRainIcon, CloudIcon, SunIcon } from "../icons";
 
+type BoxProps = {
+  size: "big" | "sm";
+  text: "ONTEM" | "HOJE" | "AMANHÃ";
+};
+const Box: React.FC<BoxProps> = ({ size, text, ...props }) => {
+  const boxStyle =
+    size === "big"
+      ? { ...styles.box }
+      : { ...styles.box, ...styles.scaledDownBox };
+
+  return (
+    <View style={boxStyle}>
+      <Typography
+        style={size !== "big" ? styles.scaledDownText : { fontSize: 18 }}
+        color="rgba(85, 85, 85, 1)"
+        fontFamily="noto-sans"
+        type={1}
+      >
+        {text}
+      </Typography>
+      <View style={styles.weatherIconContainer}>{props.children}</View>
+    </View>
+  );
+};
 const WeatherBoxes: React.FC = () => {
   return (
     <View style={styles.boxContainer}>
-      <View style={{ ...styles.box, ...styles.scaledDownBox }}>
-        <Typography
-          style={styles.scaledDownText}
-          color="rgba(85, 85, 85, 1)"
-          fontFamily="noto-sans"
-          type={1}
-        >
-          ONTEM
-        </Typography>
-        <View style={styles.weatherIconContainer}>
-          <CloudIcon width={60} height={30} style={styles.iconStyle} />
-        </View>
-      </View>
-      <View style={styles.box}>
-        <Typography
-          style={{ fontSize: 20 }}
-          color="rgba(85, 85, 85, 1)"
-          fontFamily="noto-sans"
-          type={1}
-        >
-          HOJE
-        </Typography>
+      <Box size="sm" text="ONTEM">
+        <HeavyRainIcon height={35} style={styles.iconStyle} />
+      </Box>
 
-        <View style={styles.weatherIconContainer}>
-          <SunIcon width={30} height={30} style={styles.iconStyle} />
-        </View>
-      </View>
-      <View style={{ ...styles.box, ...styles.scaledDownBox }}>
-        <Typography
-          style={styles.scaledDownText}
-          color="rgba(85, 85, 85, 1)"
-          fontFamily="noto-sans"
-          type={1}
-        >
-          AMANHÃ
-        </Typography>
-        <View style={styles.weatherIconContainer}>
-          <CloudIcon width={60} height={30} style={styles.iconStyle} />
-        </View>
-      </View>
+      <Box size="big" text="HOJE">
+        <LightRainIcon height={35} style={styles.iconStyle} />
+      </Box>
+
+      <Box size="sm" text="AMANHÃ">
+        <CloudIcon height={35} style={styles.iconStyle} />
+      </Box>
     </View>
   );
 };
@@ -58,11 +52,6 @@ const styles = StyleSheet.create({
   weatherIconContainer: {
     justifyContent: "center",
     alignItems: "center",
-
-    // borderStyle: "solid",
-    // borderWidth: 1,
-    // borderColor: "black",
-
     flexGrow: 1,
     width: "100%",
   },

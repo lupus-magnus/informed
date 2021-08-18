@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import { WeatherSection, NewsSection, myFonts } from "./src/components";
+import { myFonts } from "./src/components";
+import { WeatherSection, NewsSection } from "./src/views";
 
 export default function App() {
   let [fontsLoaded] = useFonts(myFonts);

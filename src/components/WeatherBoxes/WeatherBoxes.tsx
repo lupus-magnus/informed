@@ -36,7 +36,7 @@ const WeatherBoxes: React.FC = () => {
       </Box>
 
       <Box size="big" text="HOJE">
-        <LightRainIcon height={35} style={styles.iconStyle} />
+        <SunIcon height={35} style={styles.iconStyle} />
       </Box>
 
       <Box size="sm" text="AMANHÃ">

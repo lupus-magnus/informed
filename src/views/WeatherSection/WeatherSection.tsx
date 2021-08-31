@@ -3,40 +3,11 @@ import { StyleSheet, View, Image } from "react-native";
 
 import { WeatherBoxes, DailyReport } from "../../components";
 import SunIcon from "../../components/icons/SunIcon";
+import RotatingView from "../../animations/RotatingView";
+import { CloudIcon } from "../../components/icons";
+import SlidingView from "../../animations/SlidingView";
 
 const logo = require("../../../assets/app/logo_transparent.png");
-
-const dailyReportData = {
-  climate: "Chuva leve",
-  maxTemp: 26.5,
-  minTemp: 18,
-};
-
-const IconContainer: React.FC = () => {
-  return (
-    <View style={styles.weatherIconContainer}>
-      <SunIcon style={styles.iconStyle} />
-    </View>
-  );
-};
-
-const WeatherSection: React.FC = () => {
-  return (
-    <View style={styles.weatherSectionContainer}>
-      <View style={styles.logoContainer}>
-        <Image source={logo} style={styles.logo} />
-      </View>
-      <WeatherBoxes />
-      <IconContainer />
-      <View style={styles.separator} />
-      <DailyReport
-        climate={dailyReportData.climate}
-        maxTemp={dailyReportData.maxTemp}
-        minTemp={dailyReportData.minTemp}
-      />
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   weatherIconContainer: {
@@ -82,5 +53,47 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+const dailyReportData = {
+  climate: "Chuva leve",
+  maxTemp: 26.5,
+  minTemp: 18,
+};
+const weatherAnimatedIcons = {
+  sun: (
+    <SunIcon
+      animated
+      style={{
+        ...styles.iconStyle,
+      }}
+    />
+  ),
+  clouds: <CloudIcon animated style={styles.iconStyle} />,
+};
+const IconContainer: React.FC = () => {
+  return (
+    <View style={styles.weatherIconContainer}>
+      {weatherAnimatedIcons.clouds}
+    </View>
+  );
+};
+
+const WeatherSection: React.FC = () => {
+  return (
+    <View style={styles.weatherSectionContainer}>
+      <View style={styles.logoContainer}>
+        <Image source={logo} style={styles.logo} />
+      </View>
+      <WeatherBoxes />
+      <IconContainer />
+      <View style={styles.separator} />
+      <DailyReport
+        climate={dailyReportData.climate}
+        maxTemp={dailyReportData.maxTemp}
+        minTemp={dailyReportData.minTemp}
+      />
+    </View>
+  );
+};
 
 export default WeatherSection;

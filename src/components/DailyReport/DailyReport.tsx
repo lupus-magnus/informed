@@ -19,14 +19,10 @@ const DailyReport: React.FC<dailyReportDataProps> = (data) => {
           Clima: {data.climate}
         </Typography>
         <Typography style={styles.reportText} fontFamily="rajdhani" type={1}>
-          Máxima:{" "}
-          <CountUp isCounting start={-10.0} end={data.maxTemp} duration={2.5} />
-          °
+          Máxima: <CountUp isCounting end={data.maxTemp} duration={1.5} />°
         </Typography>
         <Typography style={styles.reportText} fontFamily="rajdhani" type={1}>
-          Mínima:{" "}
-          <CountUp isCounting start={-10.0} end={data.minTemp} duration={3.5} />
-          °
+          Mínima: <CountUp isCounting end={data.minTemp} duration={2.5} />°
         </Typography>
       </View>
       <Image style={styles.thermometer} source={thermometer} />

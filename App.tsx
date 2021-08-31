@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { myFonts } from "./src/components";
 import { WeatherSection, NewsSection } from "./src/views";
+import SlidingView from "./src/animations/SlidingView";
 
 export default function App() {
   let [fontsLoaded] = useFonts(myFonts);

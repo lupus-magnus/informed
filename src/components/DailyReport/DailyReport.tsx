@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Pressable, Alert } from "react-native";
 import { CountUp } from "use-count-up";
 
 import Typography from "../../components/Typography/Typography";
 const thermometer = require("../../../assets/weather/thermometer.png");
+const gearIcon = require("../../../assets/generic/gear.png");
 
 type dailyReportDataProps = {
   climate: string;
@@ -25,6 +26,18 @@ const DailyReport: React.FC<dailyReportDataProps> = (data) => {
           Mínima: <CountUp isCounting end={data.minTemp} duration={2.5} />°
         </Typography>
       </View>
+      <Pressable
+        android_ripple={{ color: "#0001", borderless: true }}
+        style={styles.imageComponent}
+        onPress={() =>
+          Alert.alert(
+            "Booooa!",
+            "Tá funcionando o pressable aqui, hein... Nos próximos episódios... roteamento."
+          )
+        }
+      >
+        <Image style={styles.gear} source={gearIcon} />
+      </Pressable>
       <Image style={styles.thermometer} source={thermometer} />
     </View>
   );
@@ -45,6 +58,15 @@ const styles = StyleSheet.create({
   },
 
   thermometer: {
+    alignSelf: "center",
+  },
+  imageComponent: {
+    marginLeft: 70,
+    alignSelf: "center",
+  },
+  gear: {
+    width: 40,
+    height: 40,
     alignSelf: "center",
   },
 });

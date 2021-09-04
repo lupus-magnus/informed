@@ -8,6 +8,7 @@ const SlidingView: React.FC = ({ ...props }) => {
   const anim = Animated.timing(pixels, {
     toValue: 3,
     duration: 3000,
+    delay: 1500,
     useNativeDriver: true,
     easing: Easing.inOut(Easing.ease), //.linear,
   });

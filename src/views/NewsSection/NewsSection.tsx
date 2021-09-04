@@ -32,9 +32,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(243,244,241,0.2)",
     alignItems: "center",
-    height: "40%",
-    width: "95%",
-    marginTop: "10%",
+    width: "100%",
+    height: "100%",
     overflow: "hidden",
     borderRadius: 20,
   },

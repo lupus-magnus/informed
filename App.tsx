@@ -23,7 +23,7 @@ export default function App() {
       >
         <PopInView
           delay={1000}
-          duration={1000}
+          duration={1500}
           style={{
             width: sectionWidth,
             height: sectionHeight,
@@ -34,7 +34,7 @@ export default function App() {
         </PopInView>
         <PopInView
           delay={1500}
-          duration={1000}
+          duration={1500}
           style={{
             width: sectionWidth,
             height: sectionHeight,

@@ -2,12 +2,8 @@ import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 
 import { WeatherBoxes, DailyReport } from "../../components";
-import {
-  CloudIcon,
-  HeavyRainIcon,
-  SunIcon,
-  LightRainIcon,
-} from "../../components/icons";
+import SunIcon from "../../components/icons/SunIcon";
+import { CloudIcon } from "../../components/icons";
 
 const logo = require("../../../assets/app/logo_transparent.png");
 
@@ -31,9 +27,6 @@ const styles = StyleSheet.create({
   weatherSectionContainer: {
     backgroundColor: "rgba(243,244,241,0.2)",
     alignItems: "center",
-    height: "40%",
-    width: "95%",
-    marginTop: "20%",
     borderRadius: 20,
     justifyContent: "space-between",
   },
@@ -56,18 +49,22 @@ const dailyReportData = {
   maxTemp: 26.5,
   minTemp: 18,
 };
-
 const weatherAnimatedIcons = {
-  sun: <SunIcon animated style={styles.iconStyle} />,
+  sun: (
+    <SunIcon
+      animated
+      style={{
+        ...styles.iconStyle,
+      }}
+    />
+  ),
   clouds: <CloudIcon animated style={styles.iconStyle} />,
-  heavyRain: <HeavyRainIcon animated style={styles.iconStyle} />,
-  lightRain: <LightRainIcon animated style={styles.iconStyle} />,
 };
 
 const IconContainer: React.FC = () => {
   return (
     <View style={styles.weatherIconContainer}>
-      {weatherAnimatedIcons.lightRain}
+      {weatherAnimatedIcons.clouds}
     </View>
   );
 };

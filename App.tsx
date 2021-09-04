@@ -1,13 +1,17 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Image } from "react-native";
+import { StyleSheet, ImageBackground, useWindowDimensions } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { myFonts } from "./src/components";
 import { WeatherSection, NewsSection } from "./src/views";
 import SlidingView from "./src/animations/SlidingView";
+import { PopInView } from "./src/animations";
 
 export default function App() {
+  const { height, width } = useWindowDimensions();
   let [fontsLoaded] = useFonts(myFonts);
+  const sectionWidth = 0.9 * width;
+  const sectionHeight = 0.4 * height;
 
   if (!fontsLoaded) return <AppLoading />;
   return (
@@ -15,10 +19,30 @@ export default function App() {
       <ImageBackground
         source={require("./assets/app/rio.jpg")}
         resizeMode="cover"
-        style={styles.background}
+        style={{ width: width, height: height * 1.1, ...styles.background }}
       >
-        <WeatherSection />
-        <NewsSection />
+        <PopInView
+          delay={1000}
+          duration={1000}
+          style={{
+            width: sectionWidth,
+            height: sectionHeight,
+            ...styles.section,
+          }}
+        >
+          <WeatherSection />
+        </PopInView>
+        <PopInView
+          delay={1500}
+          duration={1000}
+          style={{
+            width: sectionWidth,
+            height: sectionHeight,
+            ...styles.section,
+          }}
+        >
+          <NewsSection />
+        </PopInView>
       </ImageBackground>
     </>
   );
@@ -26,9 +50,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   background: {
-    width: "100%",
-    height: "100%",
     flex: 1,
     alignItems: "center",
+  },
+  section: {
+    maxWidth: "95%",
+    marginTop: "20%",
   },
 });

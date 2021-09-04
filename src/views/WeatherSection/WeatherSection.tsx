@@ -2,10 +2,12 @@ import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 
 import { WeatherBoxes, DailyReport } from "../../components";
-import SunIcon from "../../components/icons/SunIcon";
-import RotatingView from "../../animations/RotatingView";
-import { CloudIcon } from "../../components/icons";
-import SlidingView from "../../animations/SlidingView";
+import {
+  CloudIcon,
+  HeavyRainIcon,
+  SunIcon,
+  LightRainIcon,
+} from "../../components/icons";
 
 const logo = require("../../../assets/app/logo_transparent.png");
 
@@ -13,11 +15,6 @@ const styles = StyleSheet.create({
   weatherIconContainer: {
     justifyContent: "center",
     alignItems: "center",
-
-    //borderStyle: "solid",
-    //borderBottomWidth: 2,
-    //borderColor: "#555",
-
     flexGrow: 1,
     width: "100%",
   },
@@ -59,21 +56,18 @@ const dailyReportData = {
   maxTemp: 26.5,
   minTemp: 18,
 };
+
 const weatherAnimatedIcons = {
-  sun: (
-    <SunIcon
-      animated
-      style={{
-        ...styles.iconStyle,
-      }}
-    />
-  ),
+  sun: <SunIcon animated style={styles.iconStyle} />,
   clouds: <CloudIcon animated style={styles.iconStyle} />,
+  heavyRain: <HeavyRainIcon animated style={styles.iconStyle} />,
+  lightRain: <LightRainIcon animated style={styles.iconStyle} />,
 };
+
 const IconContainer: React.FC = () => {
   return (
     <View style={styles.weatherIconContainer}>
-      {weatherAnimatedIcons.clouds}
+      {weatherAnimatedIcons.lightRain}
     </View>
   );
 };

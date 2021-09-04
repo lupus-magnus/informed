@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, Image } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { myFonts } from "./src/components";

@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Image, Text } from "react-native";
 
-import { WeatherBoxes, DailyReport } from "../../components";
+import { WeatherBoxes, DailyReport, InformedLogoIcon } from "../../components";
 import SunIcon from "../../components/icons/SunIcon";
 import { CloudIcon } from "../../components/icons";
 
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   weatherSectionContainer: {
     backgroundColor: "rgba(243,244,241,0.2)",
     alignItems: "center",
+    height: "100%",
     borderRadius: 20,
     justifyContent: "space-between",
   },
@@ -70,19 +71,39 @@ const IconContainer: React.FC = () => {
 };
 
 const WeatherSection: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 5000);
+  }, []);
   return (
     <View style={styles.weatherSectionContainer}>
-      <View style={styles.logoContainer}>
-        <Image source={logo} style={styles.logo} />
-      </View>
-      <WeatherBoxes />
-      <IconContainer />
-      <View style={styles.separator} />
-      <DailyReport
-        climate={dailyReportData.climate}
-        maxTemp={dailyReportData.maxTemp}
-        minTemp={dailyReportData.minTemp}
-      />
+      {isLoading ? (
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <InformedLogoIcon style={{ minHeight: "80%" }} />
+        </View>
+      ) : (
+        <>
+          <View style={styles.logoContainer}>
+            <Image source={logo} style={styles.logo} />
+          </View>
+          <WeatherBoxes />
+          <IconContainer />
+          <View style={styles.separator} />
+          <DailyReport
+            climate={dailyReportData.climate}
+            maxTemp={dailyReportData.maxTemp}
+            minTemp={dailyReportData.minTemp}
+          />
+        </>
+      )}
     </View>
   );
 };

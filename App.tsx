@@ -4,7 +4,6 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { myFonts } from "./src/components";
 import { WeatherSection, NewsSection } from "./src/views";
-import SlidingView from "./src/animations/SlidingView";
 import { PopInView } from "./src/animations";
 
 export default function App() {
@@ -22,8 +21,8 @@ export default function App() {
         style={{ width: width, height: height * 1.1, ...styles.background }}
       >
         <PopInView
-          delay={1000}
-          duration={1500}
+          delay={600}
+          duration={400}
           style={{
             width: sectionWidth,
             height: sectionHeight,
@@ -34,7 +33,7 @@ export default function App() {
         </PopInView>
         <PopInView
           delay={1500}
-          duration={1500}
+          duration={400}
           style={{
             width: sectionWidth,
             height: sectionHeight,
@@ -55,6 +54,6 @@ const styles = StyleSheet.create({
   },
   section: {
     maxWidth: "95%",
-    marginTop: "20%",
+    marginTop: "15%",
   },
 });

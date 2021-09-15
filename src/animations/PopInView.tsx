@@ -29,7 +29,7 @@ const PopInView: React.FC<{
     duration: 600,
     delay,
     useNativeDriver: true,
-    easing: Easing.bounce,
+    // easing: Easing.bounce,
   });
 
   const interpolatedScaling = animatedScale.interpolate({

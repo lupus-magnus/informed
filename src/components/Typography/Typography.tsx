@@ -1,5 +1,6 @@
 import { Text } from "react-native";
 import React from "react";
+import TypeWriter from "react-native-typewriter";
 
 import {
   NotoSans_400Regular,
@@ -17,6 +18,8 @@ type TypographyProps = {
   style?: {
     [key: string]: string | number | { [key: string]: string | number }[];
   };
+  typewritter?: boolean;
+  onTypingEnd?: () => void;
 };
 
 export const myFonts = {
@@ -31,6 +34,8 @@ const Typography: React.FC<TypographyProps> = ({
   type = 1,
   color = "black",
   style = {},
+  typewritter = false,
+  onTypingEnd = () => {},
   ...props
 }) => {
   const models = {
@@ -69,6 +74,17 @@ const Typography: React.FC<TypographyProps> = ({
 
   const textStyle = models[fontFamily][type];
 
+  if (typewritter) {
+    return (
+      <TypeWriter
+        onTypingEnd={() => onTypingEnd()}
+        typing={1}
+        style={{ ...textStyle, color, ...style }}
+      >
+        {props.children}
+      </TypeWriter>
+    );
+  }
   return (
     <Text style={{ ...textStyle, color, ...style }}>{props.children}</Text>
   );

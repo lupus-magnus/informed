@@ -1,29 +1,56 @@
-import React from "react";
-import { StyleSheet, View, ImageBackground } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, ImageBackground, Alert } from "react-native";
 import Typography from "../../components/Typography/Typography";
+import { ZoomingBackground } from "../../animations";
 
-const mockImage = require("../../../assets/mock/handshake.jpeg");
+const greenImage = require("../../../assets/mock/news/green.jpg");
+const computersImage = require("../../../assets/mock/news/screens.jpg");
+const gunsImage = require("../../../assets/mock/news/guns.png");
+
+const mockNews = [
+  {
+    title: "New technologies in the development have come to stay.",
+    img: computersImage,
+  },
+  {
+    title:
+      "A brand new world? Get to know the ecovillages and what they have to teach us!",
+    img: greenImage,
+  },
+  {
+    title: "Guns are back on the streets. And this time it is different.",
+    img: gunsImage,
+  },
+];
 
 const NewsSection: React.FC = () => {
+  const [news] = useState(mockNews);
+  const [onDisplay, setOnDisplay] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => setOnDisplay((prev) => prev + 1), 5000);
+  }, [onDisplay]);
+
   return (
     <View style={styles.container}>
-      <ImageBackground
+      <ZoomingBackground
         imageStyle={{ borderRadius: 10 }}
-        source={mockImage}
-        resizeMode="cover"
+        source={news[onDisplay % news.length].img}
         style={styles.background}
       >
         <View style={styles.textContainer}>
           <Typography
-            color="white"
+            typewritter
+            color="#bbb"
             style={styles.newsTitle}
-            fontFamily="noto-sans"
+            fontFamily="rajdhani"
             type={1}
+            // onTypingEnd={() => Alert.alert("typing end")}
           >
-            Manchete da notícia
+            {news[onDisplay % news.length].title}
           </Typography>
         </View>
-      </ImageBackground>
+      </ZoomingBackground>
     </View>
   );
 };
@@ -48,10 +75,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: 80,
-    alignItems: "center",
+    paddingHorizontal: 32,
     backgroundColor: "rgba(0,0,0,0.5)",
-    // borderBottomRightRadius: 10,
-    // borderBottomLeftRadius: 10,
   },
   newsTitle: {
     marginTop: 10,

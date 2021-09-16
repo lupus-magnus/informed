@@ -17,17 +17,17 @@ Now, for the specifics...
 - Animated API
 - Expo
 
-## 🎯 Objectives
+## 🎯 Challenges/Goals
 
-- [ ] Design all the app screens using Figma
 - [x] Build a mobile application with React Native
-- [ ] Use an User Context for storing his preferences
-- [ ] Get data for the News and Weather from APIs
-- [ ] Navigation between multiple screens
+- [ ] Design all the app screens using Figma
+- [ ] Make use of the Context API
+- [ ] Get data for the News and the Weather from APIs
+- [ ] Implement navigation between multiple screens
 - [ ] Persist data safely in the users phone
 
 ## 🎥 Latest Demo
 
 <h1 align="center">
-  <img align="center" width="150px" alt="LupusMagnus | Programming gif" src="https://user-images.githubusercontent.com/71194923/133362431-b51c8ace-fe4c-4035-ac85-448768939441.gif" />         
+  <img align="center" width="360px" alt="LupusMagnus | Programming gif" src="https://user-images.githubusercontent.com/71194923/133362431-b51c8ace-fe4c-4035-ac85-448768939441.gif" />         
 </h1>

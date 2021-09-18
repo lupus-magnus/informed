@@ -1,59 +1,32 @@
 import React from "react";
-import { StyleSheet, ImageBackground, useWindowDimensions } from "react-native";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
 import { myFonts } from "./src/components";
-import { WeatherSection, NewsSection } from "./src/views";
-import { PopInView } from "./src/animations";
+import AppLoading from "expo-app-loading";
+import { HomeScreen, ConfigScreen } from "./src/screens";
+import { NavigationContainer } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+export type RootStackParamList = { Home: undefined; Configs: undefined };
+export type NavigateProp = StackNavigationProp<RootStackParamList>;
 
 export default function App() {
-  const { height, width } = useWindowDimensions();
   let [fontsLoaded] = useFonts(myFonts);
-  const sectionWidth = 0.9 * width;
-  const sectionHeight = 0.4 * height;
-
   if (!fontsLoaded) return <AppLoading />;
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <>
-      <ImageBackground
-        source={require("./assets/app/rio.jpg")}
-        resizeMode="cover"
-        style={{ width: width, height: height * 1.1, ...styles.background }}
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Home"
       >
-        <PopInView
-          delay={600}
-          duration={400}
-          style={{
-            width: sectionWidth,
-            height: sectionHeight,
-            ...styles.section,
-          }}
-        >
-          <WeatherSection />
-        </PopInView>
-        <PopInView
-          delay={1500}
-          duration={400}
-          style={{
-            width: sectionWidth,
-            height: sectionHeight,
-            ...styles.section,
-          }}
-        >
-          <NewsSection />
-        </PopInView>
-      </ImageBackground>
-    </>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Configs" component={ConfigScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    alignItems: "center",
-  },
-  section: {
-    maxWidth: "95%",
-    marginTop: "15%",
-  },
-});

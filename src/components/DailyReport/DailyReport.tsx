@@ -2,7 +2,9 @@ import React from "react";
 import { StyleSheet, View, Image, Pressable, Alert } from "react-native";
 import { CountUp } from "use-count-up";
 
+import { useNavigation } from "@react-navigation/core";
 import Typography from "../../components/Typography/Typography";
+import { NavigateProp } from "../../../App";
 const thermometer = require("../../../assets/weather/thermometer.png");
 const gearIcon = require("../../../assets/generic/gear.png");
 
@@ -13,6 +15,7 @@ type dailyReportDataProps = {
 };
 
 const DailyReport: React.FC<dailyReportDataProps> = (data) => {
+  const navigation = useNavigation<NavigateProp>();
   return (
     <View style={styles.reportContainer}>
       <View style={{ alignSelf: "flex-end" }}>
@@ -29,12 +32,7 @@ const DailyReport: React.FC<dailyReportDataProps> = (data) => {
       <Pressable
         android_ripple={{ color: "#0001", borderless: true }}
         style={styles.imageComponent}
-        onPress={() =>
-          Alert.alert(
-            "Booooa!",
-            "Tá funcionando o pressable aqui, hein... Nos próximos episódios... roteamento."
-          )
-        }
+        onPress={() => navigation.navigate("Configs")}
       >
         <Image style={styles.gear} source={gearIcon} />
       </Pressable>

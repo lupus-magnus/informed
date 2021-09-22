@@ -29,5 +29,5 @@ Now, for the specifics...
 ## 🎥 Latest Demo
 
 <h1 align="center">
-  <img align="center" width="360px" alt="LupusMagnus | Programming gif" src="https://user-images.githubusercontent.com/71194923/134281054-1c2c3923-acb2-46eb-9166-3e6feaefea43.gif" />         
+  <img align="center" alt="LupusMagnus | Programming gif" src="https://user-images.githubusercontent.com/71194923/134281054-1c2c3923-acb2-46eb-9166-3e6feaefea43.gif" />         
 </h1>

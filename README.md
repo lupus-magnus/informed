@@ -19,11 +19,12 @@ Now, for the specifics...
 
 ## 🎯 Challenges/Goals
 
-- [x] Build a mobile application with React Native
-- [ ] Design all the app screens using Figma
+- [x] Build my first mobile application with React Native
+- [x] Design all the app screens using Figma
+- [x] Create a nice UX, using knowledge from courses I've participated.
 - [ ] Make use of the Context API
 - [ ] Get data for the News and the Weather from APIs
-- [ ] Implement navigation between multiple screens
+- [x] Implement navigation between multiple screens
 - [ ] Persist data safely in the users phone
 
 ## 🎥 Latest Demo

@@ -6,13 +6,8 @@ const PopInView: React.FC<{
   delay?: number;
   duration?: number;
   style?: ViewStyle;
-}> = ({
-  delay = 3000,
-  duration = 1500,
-  style,
-
-  ...props
-}) => {
+  // start?: boolean;
+}> = ({ delay = 3000, duration = 1500, style, ...props }) => {
   const animatedScale = useState(new Animated.Value(0))[0];
   const animatedOpacity = useState(new Animated.Value(0))[0];
 
@@ -21,7 +16,6 @@ const PopInView: React.FC<{
     duration,
     delay: delay + 200,
     useNativeDriver: true,
-    // easing: Easing.bounce, // inOut(Easing.ease),
   });
 
   const scaleAnimation = Animated.timing(animatedScale, {
@@ -29,7 +23,6 @@ const PopInView: React.FC<{
     duration: 600,
     delay,
     useNativeDriver: true,
-    // easing: Easing.bounce,
   });
 
   const interpolatedScaling = animatedScale.interpolate({

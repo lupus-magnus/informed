@@ -22,7 +22,7 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Home"
+        initialRouteName="Configs"
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Configs" component={ConfigScreen} />

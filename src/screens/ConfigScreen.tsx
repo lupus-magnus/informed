@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import AppLoading from "expo-app-loading";
 import Swiper from "react-native-swiper";
 import { useFonts } from "expo-font";
@@ -10,7 +10,6 @@ import {
   useWindowDimensions,
   TextInput,
   Pressable,
-  Alert,
   Animated,
   Easing,
 } from "react-native";
@@ -18,12 +17,12 @@ import { NavigateProp } from "../../App";
 import { myFonts } from "../../src/components";
 import { Typography } from "../components";
 import { PopInView } from "../animations";
-
-// const examples =  // "Ciência", "Artes", "Medicina"];
+import { ConfigsContext } from "../contexts/ConfigsContext";
 
 const ConfigScreen: React.FC = () => {
   const { height, width } = useWindowDimensions();
   const [usernameField, setUsernameField] = useState("");
+  const [customInterestField, setCustomInterestField] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const animatedPosition = useState(new Animated.Value(0))[0];
   const animatedOpacity = useState(new Animated.Value(0))[0];
@@ -37,6 +36,17 @@ const ConfigScreen: React.FC = () => {
     { name: "Artes", selected: false },
     { name: "Medicina", selected: false },
   ]);
+  const [doneWithConfigs, setDoneWithConfigs] = useState(false);
+
+  const configs = useContext(ConfigsContext);
+  const {
+    userName,
+    setUserName,
+    userInterests,
+    setUserInterests,
+    handleSaveConfigs,
+  } = configs;
+
   const opacityAnimation = Animated.timing(animatedOpacity, {
     toValue: 1,
     duration: 200,
@@ -62,15 +72,29 @@ const ConfigScreen: React.FC = () => {
     positionAnimation.start();
   }, []);
 
-  useEffect(() => {
-    console.log(options);
-  }, [options]);
-
   const updateIndex = useCallback((res) => {
     setTimeout(() => {
       setCurrentSlide(res);
     }, 50);
   }, []);
+
+  useEffect(() => {
+    const interests = options
+      .filter((option) => option.selected)
+      .map((option) => option.name);
+    setUserInterests(interests);
+  }, [options]);
+
+  useEffect(() => {
+    const updatedInterests = Array.from(
+      new Set([customInterestField, ...userInterests])
+    );
+    setUserInterests(updatedInterests);
+  }, [doneWithConfigs]);
+
+  useEffect(() => {
+    setUserName(usernameField);
+  }, [usernameField]);
 
   if (!fontsLoaded) return <AppLoading />;
   return (
@@ -114,7 +138,8 @@ const ConfigScreen: React.FC = () => {
               fontFamily="rajdhani"
               type={2}
             >
-              Matt, você gosta de algum desses assuntos?
+              {userName ? `${userName}, você` : "Você"} gosta de algum desses
+              assuntos?
             </Typography>
             <View style={styles.suggestionBoxContainer}>
               {currentSlide === 1 &&
@@ -168,7 +193,12 @@ const ConfigScreen: React.FC = () => {
               Algum interesse em particular?
             </Typography>
 
-            <TextInput style={styles.inputField} />
+            <TextInput
+              onChangeText={(text) => setCustomInterestField(text)}
+              defaultValue={customInterestField}
+              style={styles.inputField}
+              onBlur={() => setDoneWithConfigs(true)}
+            />
             <Typography
               style={styles.messageLabel}
               fontFamily="rajdhani"
@@ -177,7 +207,16 @@ const ConfigScreen: React.FC = () => {
               Não se preocupe, todas essas opções poderão ser configuradas
               depois.
             </Typography>
-            <Pressable onPress={() => navigation.navigate("Home")}>
+            <Pressable
+              onPress={async () => {
+                setDoneWithConfigs(true);
+                await handleSaveConfigs({
+                  username: userName,
+                  interests: userInterests,
+                });
+                navigation.navigate("Home");
+              }}
+            >
               <Typography
                 style={styles.readyButton}
                 fontFamily="rajdhani"

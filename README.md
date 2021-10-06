@@ -12,20 +12,24 @@ Now, for the specifics...
 ## 🧰 Technologies
 
 - Typescript
-- React
+- React JS
 - React Native
-- Animated API
 - Expo
+- Context API
+- Async Storage
+- React Navigation 
+- Animated
+
 
 ## 🎯 Challenges/Goals
 
 - [x] Build my first mobile application with React Native
 - [x] Design all the app screens using Figma
 - [x] Create a nice UX, using knowledge from courses I've participated.
-- [ ] Make use of the Context API
+- [x] Make use of the Context API
 - [ ] Get data for the News and the Weather from APIs
 - [x] Implement navigation between multiple screens
-- [ ] Persist data safely in the users phone
+- [x] Persist data safely in the users phone
 
 ## 🎥 Latest Demo
 

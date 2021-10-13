@@ -78,6 +78,7 @@ const Typography: React.FC<TypographyProps> = ({
     return (
       <TypeWriter
         onTypingEnd={() => onTypingEnd()}
+        fixed
         typing={1}
         style={{ ...textStyle, color, ...style }}
       >

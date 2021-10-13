@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { StyleSheet, ImageBackground, useWindowDimensions } from "react-native";
 import { WeatherSection, NewsSection } from "../views";
 import { PopInView } from "../animations";
+import { getWeatherForecast } from "../api";
+import { ConfigsContext } from "../contexts/ConfigsContext";
+import { LocationProps } from "../types/location";
 
 export default function HomeScreen() {
   const { height, width } = useWindowDimensions();
   const sectionWidth = 0.9 * width;
   const sectionHeight = 0.4 * height;
+  const { location } = useContext(ConfigsContext);
+
+  useEffect(() => {
+    if (location) {
+      const { lat, lon } = location as LocationProps;
+      getWeatherForecast(lat, lon);
+      console.log("Opa! Location:", lat, lon);
+    }
+  }, [location]);
 
   return (
     <>

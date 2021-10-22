@@ -18,7 +18,7 @@ type ConfigsContextProps = {
   location: null | LocationProps;
 };
 
-export const ConfigsContext = React.createContext({} as ConfigsContextProps); //  as AuthProps);
+export const ConfigsContext = React.createContext({} as ConfigsContextProps);
 
 const ConfigsProvider: React.FC = ({ children }) => {
   const [userName, setUserName] = useState("");
@@ -27,10 +27,10 @@ const ConfigsProvider: React.FC = ({ children }) => {
   const [location, setLocation] = useState<null | LocationProps>(null);
 
   const checkIfStoredConfigs = async () => {
-    console.log("checking if stored configs...");
     const value = await AsyncStorage.getItem("@user_configs");
-    console.log("retrieved value:", value);
-    setHasConfigStored(true);
+    if (value) {
+      setHasConfigStored(true);
+    }
   };
 
   const findUserLocation = async () => {
@@ -42,7 +42,6 @@ const ConfigsProvider: React.FC = ({ children }) => {
     let location = await Location.getCurrentPositionAsync({});
     const { coords } = location;
     const { latitude: lat, longitude: lon } = coords;
-    console.log("coords:", coords);
     setLocation({ lat, lon });
   };
 
@@ -51,16 +50,16 @@ const ConfigsProvider: React.FC = ({ children }) => {
     findUserLocation();
   }, []);
 
-  useEffect(() => {
-    console.log("hasConfigStored:", hasConfigStored);
-  }, [hasConfigStored]);
+  // useEffect(() => {
+  //   console.log("hasConfigStored:", hasConfigStored);
+  // }, [hasConfigStored]);
 
   const handleSaveConfigs = async (configsObj: ConfigsProps) => {
     const serializedConfigs = JSON.stringify(configsObj);
     await AsyncStorage.setItem("@user_configs", serializedConfigs);
-    console.log("A new configuration has been set.");
-    console.log("username:", userName);
-    console.log("userInterests:", userInterests);
+    // console.log("A new configuration has been set.");
+    // console.log("username:", userName);
+    // console.log("userInterests:", userInterests);
   };
 
   return (

@@ -1,3 +1,5 @@
+import { WeatherApiResponseProps } from "../types/weather-data";
+
 const apiKey = "df515d0721951aa4125d1fdd58d63243";
 
 const filterWeatherData = (data: any) => {
@@ -22,8 +24,14 @@ const filterWeatherData = (data: any) => {
 export const getWeatherForecast = async (
   lat: number | string,
   lon: number | string
-): Promise<any> => {
+): Promise<WeatherApiResponseProps | {}> => {
+  // null; //
   const endpoint = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&units=metric`;
+  if (!endpoint) {
+    console.log("weather API response: No requests were made.");
+    return {};
+  }
+
   const res = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -35,6 +43,6 @@ export const getWeatherForecast = async (
   });
   const data = await res.json();
   const filteredData = filterWeatherData(data);
-
   console.log("weather API response:", filteredData);
+  return filteredData;
 };

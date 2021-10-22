@@ -1,9 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 
 import { WeatherBoxes, DailyReport, InformedLogoIcon } from "../../components";
-import SunIcon from "../../components/icons/SunIcon";
-import { CloudIcon } from "../../components/icons";
+
+import {
+  CloudIcon,
+  HeavyRainIcon,
+  SunIcon,
+  LightRainIcon,
+} from "../../components/icons";
+import {
+  WeatherContext,
+  WeatherMainOptions,
+} from "../../contexts/WeatherContext";
+import { WeatherApiResponseProps } from "../../types/weather-data";
 
 const logo = require("../../../assets/app/logo_transparent.png");
 
@@ -50,35 +60,53 @@ const dailyReportData = {
   maxTemp: 26.5,
   minTemp: 18,
 };
+
 const weatherAnimatedIcons = {
-  sun: (
-    <SunIcon
+  chuva: <HeavyRainIcon animated style={styles.iconStyle} />,
+  chuvisco: (
+    <LightRainIcon
       animated
-      style={{
-        ...styles.iconStyle,
-      }}
+      style={{ ...styles.iconStyle, transform: [{ scale: 0.9 }] }}
     />
   ),
-  clouds: <CloudIcon animated style={styles.iconStyle} />,
+  sol: <SunIcon animated style={styles.iconStyle} />,
+  nublado: <CloudIcon animated style={styles.iconStyle} />,
 };
 
-const IconContainer: React.FC = () => {
+const IconContainer: React.FC<{ mainWeather: WeatherMainOptions }> = ({
+  mainWeather,
+}) => {
+  const weatherMappingObj = {
+    Thunderstorm: "chuva",
+    Drizzle: "chuvisco",
+    Rain: "chuva",
+    Snow: "chuva",
+    Clear: "sol",
+    Clouds: "nublado",
+  } as const;
+
+  const mappedWeather = weatherMappingObj[mainWeather];
   return (
     <View style={styles.weatherIconContainer}>
-      {weatherAnimatedIcons.clouds}
+      {weatherAnimatedIcons[mappedWeather]}
     </View>
   );
 };
 
 const WeatherSection: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+  const { weatherData } = useContext(WeatherContext);
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 3000);
-  }, []);
+  const handleWeatherMapping = (mainWeatherRaw: string): string => {
+    const mainWeather = mainWeatherRaw.toLowerCase();
+    return mainWeather;
+  };
+  // const handleWeatherMapping = (mainWeatherRaw: string): string => {
+
+  // }
   return (
     <View style={styles.weatherSectionContainer}>
-      {isLoading ? (
+      {!weatherData.fulfilled ? (
         <View
           style={{
             width: "100%",
@@ -95,12 +123,26 @@ const WeatherSection: React.FC = () => {
             <Image source={logo} style={styles.logo} />
           </View>
           <WeatherBoxes />
-          <IconContainer />
+          <IconContainer
+            mainWeather={
+              (weatherData.data as WeatherApiResponseProps).today.weather[0]
+                .main
+            }
+          />
           <View style={styles.separator} />
           <DailyReport
-            climate={dailyReportData.climate}
-            maxTemp={dailyReportData.maxTemp}
-            minTemp={dailyReportData.minTemp}
+            climate={
+              (weatherData.data as WeatherApiResponseProps).today.weather[0]
+                .main
+            }
+            maxTemp={Math.floor(
+              (weatherData.data as WeatherApiResponseProps).today.temperature
+                .max
+            )}
+            minTemp={Math.floor(
+              (weatherData.data as WeatherApiResponseProps).today.temperature
+                .min
+            )}
           />
         </>
       )}

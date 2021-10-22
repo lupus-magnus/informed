@@ -6,7 +6,7 @@ import { LightRainIcon, HeavyRainIcon, CloudIcon, SunIcon } from "../icons";
 
 type BoxProps = {
   size: "big" | "sm";
-  text: "ONTEM" | "HOJE" | "AMANHÃ";
+  text: "HOJE" | "DEPOIS" | "AMANHÃ";
 };
 const Box: React.FC<BoxProps> = ({ size, text, ...props }) => {
   const boxStyle =
@@ -31,15 +31,15 @@ const Box: React.FC<BoxProps> = ({ size, text, ...props }) => {
 const WeatherBoxes: React.FC = () => {
   return (
     <View style={styles.boxContainer}>
-      <Box size="sm" text="ONTEM">
+      <Box size="sm" text="HOJE">
         <HeavyRainIcon height={35} style={styles.iconStyle} />
       </Box>
 
-      <Box size="big" text="HOJE">
+      <Box size="sm" text="AMANHÃ">
         <SunIcon height={35} style={styles.iconStyle} />
       </Box>
 
-      <Box size="sm" text="AMANHÃ">
+      <Box size="sm" text="DEPOIS">
         <CloudIcon height={35} style={styles.iconStyle} />
       </Box>
     </View>

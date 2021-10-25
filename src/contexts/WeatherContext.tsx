@@ -82,6 +82,10 @@ const WeatherProvider: React.FC = ({ children }) => {
     );
 
     if (shouldRequestNewData) {
+      setWeatherData({
+        fulfilled: false,
+        data: {},
+      });
       getNewWeatherData();
     } else {
       setWeatherData({

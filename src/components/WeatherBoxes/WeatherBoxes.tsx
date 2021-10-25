@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Typography from "../../components/Typography/Typography";
+import { WeatherMainOptions } from "../../contexts/WeatherContext";
 
 import { LightRainIcon, HeavyRainIcon, CloudIcon, SunIcon } from "../icons";
 
@@ -28,19 +29,60 @@ const Box: React.FC<BoxProps> = ({ size, text, ...props }) => {
     </View>
   );
 };
-const WeatherBoxes: React.FC = () => {
+
+const WeatherBoxes: React.FC<{ data: any }> = ({ data }) => {
+  const weatherMappedIcons = {
+    chuva: <HeavyRainIcon height={35} style={styles.iconStyle} />,
+    chuvisco: (
+      <LightRainIcon
+        height={35}
+        style={{ ...styles.iconStyle, transform: [{ scale: 0.9 }] }}
+      />
+    ),
+    sol: <SunIcon height={35} style={styles.iconStyle} />,
+    nublado: <CloudIcon height={35} style={styles.iconStyle} />,
+  } as const;
+
+  const weatherMappingObj = {
+    Thunderstorm: "chuva",
+    Drizzle: "chuvisco",
+    Rain: "chuva",
+    Snow: "chuva",
+    Clear: "sol",
+    Clouds: "nublado",
+  } as const;
+
+  const { today, forecast } = data.data;
+  const [tomorrow, dayAfter] = forecast;
+
+  const todayWeather =
+    weatherMappingObj[today.weather[0].main as WeatherMainOptions];
+  const mappedTodayWeather = weatherMappedIcons[todayWeather];
+
+  const tomorrowWeather =
+    weatherMappingObj[tomorrow.weather[0].main as WeatherMainOptions];
+  const mappedTomorrowWeather = weatherMappedIcons[tomorrowWeather];
+
+  const dayAfterWeather =
+    weatherMappingObj[dayAfter.weather[0].main as WeatherMainOptions];
+  const mappedDayAfterWeather = weatherMappedIcons[dayAfterWeather];
+
+  useEffect(() => {
+    console.log("tomorrow:", tomorrow);
+    console.log("dayAfter:", dayAfter);
+  }, []);
   return (
     <View style={styles.boxContainer}>
       <Box size="sm" text="HOJE">
-        <HeavyRainIcon height={35} style={styles.iconStyle} />
+        {mappedTodayWeather}
       </Box>
 
       <Box size="sm" text="AMANHÃ">
-        <SunIcon height={35} style={styles.iconStyle} />
+        {mappedTomorrowWeather}
       </Box>
 
       <Box size="sm" text="DEPOIS">
-        <CloudIcon height={35} style={styles.iconStyle} />
+        {mappedDayAfterWeather}
       </Box>
     </View>
   );

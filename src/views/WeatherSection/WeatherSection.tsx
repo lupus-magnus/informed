@@ -61,7 +61,7 @@ const dailyReportData = {
   minTemp: 18,
 };
 
-const weatherAnimatedIcons = {
+export const weatherAnimatedIcons = {
   chuva: <HeavyRainIcon animated style={styles.iconStyle} />,
   chuvisco: (
     <LightRainIcon
@@ -122,7 +122,7 @@ const WeatherSection: React.FC = () => {
           <View style={styles.logoContainer}>
             <Image source={logo} style={styles.logo} />
           </View>
-          <WeatherBoxes />
+          <WeatherBoxes data={weatherData} />
           <IconContainer
             mainWeather={
               (weatherData.data as WeatherApiResponseProps).today.weather[0]
